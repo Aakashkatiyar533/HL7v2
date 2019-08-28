@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!------------------custom stylesheet------------------>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!------------------jQuery js----------------->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+  <!------------------bootstrap files------------------>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!------------------To create ZIP download------------------>
+  <script type="text/javascript" src="js/jszip.js"></script>
+
+
+
+</head>
+
+<body>
+  <!--   <div class="container-fluid"> -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg" style="margin-top: 15%">
+      <div class="modal-content" style="word-wrap: break-word;">
+        <div class="modal-body" id="HL7">
+          MSH|^~/&|CITIUSTECH|HOSPITAL|INTERFACE|HOSPITALID|20190722200723||ADT^A08|11770M2210|T|2.5|||||<br>
+          EVN|A08|20190722200723|||<br>
+          PID|1|11770|11770||DINKINS^JOHN^BROWNING||19990809|M|||PO BOX 2073^2519 OLD HIGHWAY 61
+          RD^FAYETTE^MS^39069-5640||(792) 267-1195|||||11770VZ5097|||||||||||||11770|||<br>
+          PV1|1|I|2E^120^^^^^^^Outpatient_Medicare
+          Lab||||739629755^OSTRANDER^CARLSON||||||||||404829137^HESCH^BARNETT|Inpatient|11770VZ5097|||||||||||||||||||||||||20190722200723|<br>
+          AL1|1||Lep d 2||||<br>
+          GT1|1||SCHICKOWSKI^TY||PO BOX 2073^2519 OLD HIGHWAY 61 RD^FAYETTE^MS^39069-5640|(434) 116-8350|||||NIECE|<br>
+          IN1|1|195^BCBS-MT|AARP|||||<br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary pop" id="button1" onclick="CopyToClipboard('HL7')"
+            data-container="body" data-toggle="popover" data-placement="bottom" data-content="Copied!">
+            <i class="fa fa-copy fa-lg" aria-hidden="true"></i> Click to copy</button>
+
+          <button type="button" class="btn btn-light sticky-top" data-dismiss="modal"
+            class="margin: 109px 108px 5px 6px;">Close <i class="fa fa-times">
+            </i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   </div> -->
+
+  <div id="project_header">
+    <p class="main_header">HL7 MESSAGE GENERATOR</p>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal"><i
+        class="fa fa-expand" aria-hidden="true"></i>
+      ADT Template</button>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal"><i
+        class="fa fa-expand" aria-hidden="true"></i>
+      ORM Template</button>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal"><i
+        class="fa fa-expand" aria-hidden="true"></i>
+      ORU Template</button>
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"><i
+        class="fa fa-expand" aria-hidden="true"></i>
+      DFT Template</button>
+  </div>
+  <div class="tabs" style="top: 150px;">
+    <input type="radio" id="tab1" name="tab-control" checked />
+    <input type="radio" id="tab2" name="tab-control" />
+    <input type="radio" id="tab3" name="tab-control" />
+    <input type="radio" id="tab4" name="tab-control" />
+    <ul>
+      <li title="ADT">
+        <label for="tab1" role="button">
+          <svg viewBox="0 0 47 47">
+            <g>
+              <g id="Layer_1_155_">
+                <g>
+                  <path d="M26.198,8.368H10.176c-1.18,0-2.137,0.957-2.137,2.136c0,1.179,0.957,2.136,2.137,2.136h16.022
+                                        c1.182,0,2.137-0.957,2.137-2.136C28.334,9.325,27.379,8.368,26.198,8.368z" />
+                  <path d="M28.334,18.515c0-1.18-0.955-2.136-2.137-2.136H10.176c-1.18,0-2.137,0.957-2.137,2.136c0,1.18,0.957,2.137,2.137,2.137
+                                        h16.022C27.379,20.652,28.334,19.695,28.334,18.515z" />
+                  <path d="M18.188,28.663c1.18,0,2.136-0.957,2.136-2.136c0-1.18-0.956-2.137-2.136-2.137h-8.012c-1.18,0-2.137,0.957-2.137,2.137
+                                        s0.957,2.136,2.137,2.136H18.188z" />
+                  <path d="M34.314,35.93l-2.241,1.479v5.318H4.301V4.273h27.772v8.442l4.273-7.401V2.136c0-1.18-0.957-2.136-2.137-2.136H2.164
+                                        c-1.18,0-2.136,0.957-2.136,2.136v42.729c0,1.18,0.956,2.136,2.136,2.136h32.045c1.181,0,2.138-0.957,2.138-2.136V33.09
+                                        l-1.021,1.766C35.077,35.287,34.727,35.658,34.314,35.93z" />
+                  <path d="M46.947,9.894c-0.044-0.192-0.495-1.918-3.213-3.488c-2.718-1.569-4.438-1.097-4.628-1.038
+                                        c-0.255,0.081-0.47,0.253-0.604,0.485L25.15,28.979c-0.083,0.145-0.132,0.306-0.142,0.472l-0.5,8.345
+                                        c-0.024,0.404,0.182,0.786,0.531,0.989c0.352,0.202,0.785,0.188,1.123-0.033l6.977-4.606c0.139-0.09,0.254-0.213,0.337-0.356
+                                        L46.829,10.66C46.963,10.428,47.004,10.156,46.947,9.894z M28.854,35.055c-0.355-0.287-0.758-0.558-1.191-0.809
+                                        c-0.435-0.251-0.871-0.462-1.297-0.628l0.149-2.502c0.557,0.073,1.383,0.299,2.432,0.903c1.048,0.605,1.655,1.209,1.999,1.654
+                                        L28.854,35.055z" />
+                  <path
+                    d="M14.922,38.534c0.07,0.429,0.565,0.562,0.896,0.7c0.32,0.135,0.702-0.121,0.968-0.25c1.63-0.793,3.838,0.139,5.584,0.139
+                                        c1.033,0,1.033-1.602,0-1.602c-2.036,0-3.73-0.515-5.748-0.182c0-0.117-0.043-0.275-0.169-0.49
+                                        c-0.377-0.645-0.857-0.828-1.338-0.75c-0.032-0.076-0.063-0.152-0.108-0.229c-0.126-0.206-0.302-0.309-0.5-0.352
+                                        c0.563-0.984,0.926-2.025,0.557-2.867c-0.113-0.256-0.434-0.387-0.692-0.397c-1.07-0.04-1.988,1.083-2.676,1.757
+                                        c-1.721,1.687-3.237,3.602-4.704,5.508c-0.63,0.819,0.763,1.615,1.383,0.81c1.3-1.688,2.677-3.327,4.159-4.86
+                                        c-0.357,0.586-0.736,1.161-1.135,1.715c-0.57,0.881,0.791,1.631,1.383,0.809c0.141-0.215,0.32-0.37,0.516-0.503
+                                        c-0.039,0.099-0.079,0.196-0.119,0.296c0.002,0,0.004,0.001,0.006,0.002c-0.031,0.064-0.062,0.128-0.087,0.189
+                                        c-0.358,0.897,0.979,1.308,1.465,0.616c0.123-0.174,0.237-0.36,0.34-0.555C14.896,38.172,14.893,38.352,14.922,38.534z" />
+                </g>
+              </g>
+            </g>
+          </svg><br /><span>Admission (ADT)</span></label>
+      </li>
+      <li title="Shipping">
+        <label for="tab2" role="button"><svg viewBox="0 0 24 24">
+            <path
+              d="M3,4A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8H17V4M10,6L14,10L10,14V11H4V9H10M17,9.5H19.5L21.47,12H17M6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5M18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5Z" />
+          </svg><br /><span>Orders (ORM)</span></label>
+      </li>
+      <li title="Returns">
+        <label for="tab3" role="button"><svg viewBox="0 0 24 24">
+            <path
+              d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
+          </svg><br /><span>Results (ORU)</span></label>
+      </li>
+      <li title="Charges">
+        <label for="tab4" role="button"><svg viewBox="0 0 890.5 890.5">
+            <g>
+              <path d="M208.1,180.56l355-96.9l-18.8-38c-12.3-24.7-42.3-34.9-67-22.6l-317.8,157.5H208.1z" />
+              <path d="M673.3,86.46c-4.399,0-8.8,0.6-13.2,1.8l-83.399,22.8L322,180.56h289.1h126l-15.6-57.2
+                                    C715.5,101.06,695.3,86.46,673.3,86.46z" />
+              <path
+                d="M789.2,215.56h-11.4h-15.5h-15.5H628.5H193.8h-57h-48h-8.9H50.1c-15.8,0-29.9,7.3-39.1,18.8c-4.2,5.3-7.4,11.4-9.2,18.1
+                                    c-1.1,4.2-1.8,8.6-1.8,13.1v6v57v494.1c0,27.601,22.4,50,50,50h739.1c27.601,0,50-22.399,50-50v-139.5H542.4
+                                    c-46.9,0-85-38.1-85-85v-45.8v-15.5v-15.5v-34.4c0-23,9.199-43.899,24.1-59.199c13.2-13.601,30.9-22.801,50.7-25.101
+                                    c3.3-0.399,6.7-0.6,10.1-0.6h255.2H813h15.5h10.6v-136.5C839.2,237.96,816.8,215.56,789.2,215.56z" />
+              <path d="M874.2,449.86c-5-4.6-10.9-8.1-17.5-10.4c-5.101-1.699-10.5-2.699-16.2-2.699h-1.3h-1h-15.5h-55.9H542.4
+                                    c-27.601,0-50,22.399-50,50v24.899v15.5v15.5v55.4c0,27.6,22.399,50,50,50h296.8h1.3c5.7,0,11.1-1,16.2-2.7
+                                    c6.6-2.2,12.5-5.8,17.5-10.4c10-9.1,16.3-22.3,16.3-36.899v-111.3C890.5,472.16,884.2,458.959,874.2,449.86z M646.8,552.36
+                                    c0,13.8-11.2,25-25,25h-16.6c-13.8,0-25-11.2-25-25v-16.6c0-8,3.7-15.101,9.6-19.601c4.3-3.3,9.601-5.399,15.4-5.399h4.2H621.8
+                                    c13.8,0,25,11.199,25,25V552.36L646.8,552.36z" />
+            </g>
+          </svg><br /><span>Charges (DFT)</span></label>
+      </li>
+    </ul>
+
+    <div class="slider">
+      <div class="indicator"></div>
+    </div>
+    <hr>
+    <div class="content">
+      <section>
+        <!-- Info -->
+        <div style="margin-bottom: 15px;padding: 4px 12px;background-color: #e7f3fe;border-left: 6px solid #2196F3;">
+          <strong>Info!</strong><br>- Preselected fields are mandatory and cannot be unchecked.<br>- ADT will be
+          generated as per <b>HL7v2.7</b> specification.<br>- Messages will download in ZIP file.
+        </div>
+
+        <div class="card card-body">
+          <!------------------------------- START HL7 Buttons Div with hl7Buttons Function in randomValues.js----------------------------------------------------->
+          <div class="row">
+            <div class=" btn-group-toggle col-sm adtmessage" data-toggle="buttons">
+              <!-- MSH -->
+              <div class="row">
+                <div id="adtMSH"></div>
+              </div>
+              <!-- EVN -->
+              <div class="row">
+                <div id="adtEVN"></div>
+              </div>
+              <!-- PID -->
+              <div class="row">
+                <div id="adtPID"></div>
+              </div>
+              <!-- PV1 -->
+              <div class="row">
+                <div id="adtPV1"></div>
+              </div>
+              <!-- AL1 -->
+              <div class="row">
+                <div id="adtAL1"></div>
+              </div>
+              <!-- GT1 -->
+              <div class="row">
+                <div id="adtGT1">
+                </div>
+              </div>
+              <!-- IN1 -->
+              <div class="row">
+                <div id="adtIN1"></div>
+              </div>
+              <!-- DG1 -->
+              <div class="row">
+                <div id="adtDG1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="mx-auto mt-1">
+            <button id="preferred-fields" class="btn btn-dark  btn-sm">Select Preferred Fields</button>
+            <button id="select-all" class="btn btn-dark btn-sm"> Select All</button>
+            <button id="reset-btn" class="btn btn-dark btn-sm"><i class="fa fa-repeat" aria-hidden="true"></i>
+              Reset</button>
+          </div>
+        </div>
+        <!------------------------------- END HL7 Buttons Div with hl7Buttons Function in randomValues.js----------------------------------------------------->
+
+        <!---------------------------------------------START Select Message Type ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm-3">
+            <strong>Select Message Type:</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-sm btn-outline-primary " data-toggle="tooltip" data-placement="bottom"
+                title="Patient Admit">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A01"> A01
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Transfer">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A02"> A02
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Discharge">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A03"> A03
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Registration">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A04"> A04
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Information Update">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A08"> A08
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Admit Patient">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A28"> A28
+              </label>
+              <label class="btn btn-sm btn-outline-primary active" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Information Update">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A31" checked> A31
+              </label>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------END Select Message Type ----------------------------------------------->
+
+        <!---------------------------------------------START Select Gender ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm-3">
+            <label class="radio-inline" for="gender"><strong>Select Gender:</strong>&nbsp;</label>
+          </div>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="gender" class="gender" value="M">&nbsp;Male&nbsp;
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="gender" class="gender" value="F">&nbsp;Female&nbsp;
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="gender" class="gender" value="U">&nbsp;Unknown&nbsp;
+            </label>
+            <label class="radio-inline ">
+              <input type="radio" name="gender" class="gender" value="Random" checked>&nbsp;Random&nbsp;
+            </label>
+            <br>
+          </div>
+
+        </div>
+        <!---------------------------------------------END Select Gender ----------------------------------------------->
+
+        <!---------------------------------------------START Select Patient Class ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm">
+            <!-- Patient class -->
+            <label>
+              <strong>Select Patient Class:</strong>&nbsp;
+            </label>
+          </div>
+          <div class="col-sm-9">
+            <input type="checkbox" name="patient_class" class="patient_class" value="Inpatient">&nbsp;Inpatient&nbsp;
+            <input type="checkbox" name="patient_class" class="patient_class" value="Outpatient">&nbsp;Outpatient&nbsp;
+            <input type="checkbox" name="patient_class" class="patient_class" value="Emergency">&nbsp;Emergency&nbsp;
+            <input type="checkbox" name="patient_class" class="patient_class" value="Random"
+              checked="checked">&nbsp;Random
+          </div>
+        </div>
+        <!---------------------------------------------END Select Patient Class ----------------------------------------------->
+
+        <!---------------------------------------------START Select Message Count ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm-3">
+            <strong>Select Message Count:</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="btn-group">
+              <div data-toggle="tooltip" data-placement="bottom" title="Message Count"
+                style="width:20%; text-align: center;">
+                <input name="message_count" id="messagecount" class="form-control btn-sm"
+                  style="border-radius: 2px 0px 0px 2px;" type="number" value="50" min="0" max="2000" step="5" />
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="fifty"
+                onclick="showcount(50)">50</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="hundred"
+                onclick="showcount(100)">100</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="twohundred"
+                onclick="showcount(200)">200</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="threehundred"
+                onclick="showcount(300)">300</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="thousand"
+                onclick="showcount(1000)">1000</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="twothousand"
+                onclick="showcount(2000)">2000</button>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------END Select Message Count ----------------------------------------------->
+        <!--------------------------------------------- START Download Zip Button zip code in randomValues.js  ---------------------------------------------------->
+        <div class="row">
+          <div class="mx-auto">
+            <button id="downloadADT-btn" class="btn btn-success">
+              <i class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+              Download Zip
+            </button>
+          </div>
+        </div>
+        <!--------------------------------------------- END Download Zip Button zip code in randomValues.js  ---------------------------------------------------->
+      </section>
+      <section>
+        <!-- Info -->
+        <div style="margin-bottom: 15px;padding: 4px 12px;background-color: #e7f3fe;border-left: 6px solid #2196F3;">
+          <strong>Info!</strong><br>- Preselected fields are mandatory and cannot be unchecked.<br>- ADT will be
+          generated as per <b>HL7v2.7</b> specification.<br>- Messages will download in ZIP file.
+        </div>
+
+        <div class="card card-body">
+          <!------------------------------- START HL7 Buttons Div with hl7Buttons Function in randomValues.js----------------------------------------------------->
+          <div class="row">
+            <div class=" btn-group-toggle col-sm adtmessage" data-toggle="buttons">
+              <!-- MSH -->
+              <div class="row">
+                <div id="MSH"></div>
+              </div>
+              <!-- EVN -->
+              <div class="row">
+                <div id="EVN"></div>
+              </div>
+              <!-- PID -->
+              <div class="row">
+                <div id="PID"></div>
+              </div>
+              <!-- PV1 -->
+              <div class="row">
+                <div id="PV1"></div>
+              </div>
+              <!-- AL1 -->
+              <div class="row">
+                <div id="AL1"></div>
+              </div>
+              <!-- GT1 -->
+              <div class="row">
+                <div id="GT1">
+                </div>
+              </div>
+              <!-- IN1 -->
+              <div class="row">
+                <div id="IN1"></div>
+              </div>
+              <!-- DG1 -->
+              <div class="row">
+                <div id="DG1">
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="mx-auto mt-1">
+            <button id="preferred-fields" class="btn btn-dark  btn-sm">Select Preferred Fields</button>
+            <button id="select-all" class="btn btn-dark btn-sm"> Select All</button>
+            <button id="reset-btn" class="btn btn-dark btn-sm"><i class="fa fa-repeat" aria-hidden="true"></i>
+              Reset</button>
+          </div>
+        </div>
+        <!------------------------------- END HL7 Buttons Div with hl7Buttons Function in randomValues.js----------------------------------------------------->
+
+        <!---------------------------------------------START Select Message Type ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm-3">
+            <strong>Select Message Type:</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-sm btn-outline-primary " data-toggle="tooltip" data-placement="bottom"
+                title="Patient Admit">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A01"> A01
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Transfer">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A02"> A02
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Discharge">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A03"> A03
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Registration">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A04"> A04
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Information Update">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A08"> A08
+              </label>
+              <label class="btn btn-sm btn-outline-primary" data-toggle="tooltip" data-placement="bottom"
+                title="Admit Patient">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A28"> A28
+              </label>
+              <label class="btn btn-sm btn-outline-primary active" data-toggle="tooltip" data-placement="bottom"
+                title="Patient Information Update">
+                <input class="messageTypeButtons d-none" type="checkbox" value="ADT^A31" checked> A31
+              </label>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------END Select Message Type ----------------------------------------------->
+
+        <!---------------------------------------------START Select Gender ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm-3">
+            <label class="radio-inline" for="gender"><strong>Select Gender:</strong>&nbsp;</label>
+          </div>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="gender" class="gender" value="M">&nbsp;Male&nbsp;
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="gender" class="gender" value="F">&nbsp;Female&nbsp;
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="gender" class="gender" value="U">&nbsp;Unknown&nbsp;
+            </label>
+            <label class="radio-inline ">
+              <input type="radio" name="gender" class="gender" value="Random">&nbsp;Random&nbsp;
+            </label>
+            <br>
+          </div>
+
+        </div>
+        <!---------------------------------------------END Select Gender ----------------------------------------------->
+
+        <!---------------------------------------------START Select Patient Class ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm">
+            <!-- Patient class -->
+            <label>
+              <strong>Select Patient Class:</strong>&nbsp;
+            </label>
+          </div>
+          <div class="col-sm-9">
+            <input type="checkbox" name="patient_class" class="patient_class" value="Inpatient">&nbsp;Inpatient&nbsp;
+            <input type="checkbox" name="patient_class" class="patient_class" value="Outpatient">&nbsp;Outpatient&nbsp;
+            <input type="checkbox" name="patient_class" class="patient_class" value="Emergency">&nbsp;Emergency&nbsp;
+            <input type="checkbox" name="patient_class" class="patient_class" value="Random"
+              checked="checked">&nbsp;Random
+          </div>
+        </div>
+        <!---------------------------------------------END Select Patient Class ----------------------------------------------->
+
+        <!---------------------------------------------START Select Message Count ----------------------------------------------->
+        <div class="row" style="padding: 15px;">
+          <div class="col-sm-3">
+            <strong>Select Message Count:</strong>
+          </div>
+          <div class="col-sm-9">
+            <div class="btn-group">
+              <div data-toggle="tooltip" data-placement="bottom" title="Message Count"
+                style="width:20%; text-align: center;">
+                <input name="message_count" id="messagecount" class="form-control btn-sm"
+                  style="border-radius: 2px 0px 0px 2px;" type="number" value="50" min="0" max="2000" step="5" />
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="fifty"
+                onclick="showcount(50)">50</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="hundred"
+                onclick="showcount(100)">100</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="twohundred"
+                onclick="showcount(200)">200</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="threehundred"
+                onclick="showcount(300)">300</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="thousand"
+                onclick="showcount(1000)">1000</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" id="twothousand"
+                onclick="showcount(2000)">2000</button>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------END Select Message Count ----------------------------------------------->
+        <!--------------------------------------------- START Download Zip Button zip code in randomValues.js  ---------------------------------------------------->
+        <div class="row">
+          <div class="mx-auto">
+            <button id="downloadADT-btn" class="btn btn-success">
+              <i class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+              Download Zip
+            </button>
+          </div>
+        </div>
+        <!--------------------------------------------- END Download Zip Button zip code in randomValues.js  ---------------------------------------------------->
+
+      </section>
+      <section>
+        <h2>Shipping</h2>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam nemo
+        ducimus eius, magnam error quisquam sunt voluptate labore, excepturi
+        numquam! Alias libero optio sed harum debitis! Veniam, quia in eum.
+      </section>
+      <section>
+
+        <h2>Returns</h2>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa dicta
+        vero rerum? Eaque repudiandae architecto libero reprehenderit aliquam
+        magnam ratione quidem? Nobis doloribus molestiae enim deserunt
+        necessitatibus eaque quidem incidunt.
+      </section>
+    </div>
+  </div>
+
+  <!------------------HL7 template------------------>
+  <script type="text/javascript" src="js/arrays.js"></script>
+  <!------------------To create random values in different HL7 fields------------------>
+  <script type="text/javascript" src="js/randomValues.js"></script>
+
+
+</body>
+
+
+</html>
