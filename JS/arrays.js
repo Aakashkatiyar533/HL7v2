@@ -23,7 +23,7 @@ var citizenshipArray = ["Afghan", "Albanian", "Algerian", "American", "Andorran"
 var deathIndicatorArray = ["Y", "N"];
 
 //PV1
-var patientClass = ["Inpatient", "Outpatient", "Emergency"];
+var patientClassRandom = ["Inpatient", "Outpatient", "Emergency"];
 var points_of_care = ["1E", "1W", "2E", "2W", "0N"];
 var department = ["Emergency", "IP Behavioral Health", "Inpatient", "Med Surg", "Surgry", "Radiology Reading", "OP Lab/Radiology", "Outpatient", "Outpatient_Medicare Lab", "Swing Bed"];
 var admissionTypeArray = ["A^Accident", "E^Emergency", "L^Labor and Delivery", "R^Routine", "N^Newborn", "U^Urgent", "C^Elective"];
