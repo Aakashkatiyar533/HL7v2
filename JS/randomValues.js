@@ -236,7 +236,7 @@ $("#downloadADT-btn").click(function () {
       var patient_type = patientClassArray[(Math.random() * patientClassArray.length) | 0];
       var patient_class = patient_type.charAt(0);
     } else {
-      var patient_type = patientClassArray[(Math.random() * patientClassArray.length) | 0];
+      var patient_type = patientClassRandom[(Math.random() * patientClassRandom.length) | 0];
       var patient_class = patient_type.charAt(0);
     }
     var assigned_patient_location = points_of_care[(Math.random() * points_of_care.length) | 0] + "^" + Math.floor(Math.random() * (100 - 121 + 1)) + 121 + "^" + "^" + "^" + "^" + "^" + "^" + "^" + department[(Math.random() * department.length) | 0];
